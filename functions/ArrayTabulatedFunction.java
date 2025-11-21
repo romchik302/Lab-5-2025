@@ -357,4 +357,97 @@ public class ArrayTabulatedFunction
             points[i] = new FunctionPoint(x, y);
         }
     }
+
+    @Override
+    public String toString()
+    {
+        if (amountOfElements == 0)
+        {
+            return "{}";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append('{');
+
+        for(int i = 0; i < amountOfElements; i++)
+        {
+            if (i > 0)
+            {
+                sb.append(", ");
+            }
+
+            sb.append(String.format("(%.2f; %.2f)", getPointX(i), getPointY(i)));
+        }
+
+        sb.append('}');
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (o == this) return true;
+        if (o == null || !(o instanceof TabulatedFunction)) return false;
+
+        TabulatedFunction that = (TabulatedFunction) o;
+        if (that.getPointsCount() != amountOfElements) return false;
+
+        if (o instanceof ArrayTabulatedFunction arrayThat)
+        {
+            for (int i = 0; i < amountOfElements; i++)
+            {
+                if (!this.points[i].equals(arrayThat.points[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        } else
+        {
+            // общее сравнение для любого TabulatedFunction
+            for (int i = 0; i < amountOfElements; i++)
+            {
+                if (!this.points[i].equals(that.getPoint(i)))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = amountOfElements; // включаем количество точек
+
+        for (int i = 0; i < amountOfElements; i++)
+        {
+            result = 31 * result + points[i].hashCode();
+        }
+
+        return result;
+    }
+
+    @Override
+    public ArrayTabulatedFunction clone()
+    {
+        try
+        {
+            FunctionPoint[] clonedPoints = new FunctionPoint[amountOfElements];
+
+            for (int i = 0; i < amountOfElements; i++)
+            {
+                clonedPoints[i] = (FunctionPoint) points[i].clone();
+            }
+
+            return new ArrayTabulatedFunction(clonedPoints);
+        }
+        catch(Exception e)
+        {
+            throw new RuntimeException("Ошибка копирования: " + e);
+        }
+    }
 }

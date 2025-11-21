@@ -1,5 +1,7 @@
 package functions;
 
+import java.util.Objects;
+
 public class FunctionPoint
 {
     private double x;
@@ -46,5 +48,44 @@ public class FunctionPoint
     public void setY(double y)
     {
         this.y = y;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "(" + x +";" + y + ")";
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        FunctionPoint that = (FunctionPoint) obj;
+
+        return Double.compare(that.x, x) == 0 &&
+                Double.compare(that.y, y) == 0;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        long xBits = Double.doubleToLongBits(x);
+        long yBits = Double.doubleToLongBits(y);
+
+        // Разбиваем каждый long на два int (старшие и младшие 32 бита)
+        int x1 = (int)(xBits >> 32);
+        int x2 = (int)xBits;
+        int y1 = (int)(yBits >> 32);
+        int y2 = (int)yBits;
+
+        return x1 ^ x2 ^ y1 ^ y2;
+    }
+
+    @Override
+    public Object clone()
+    {
+        return new FunctionPoint(x, y);
     }
 }

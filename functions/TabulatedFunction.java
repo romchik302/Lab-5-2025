@@ -2,6 +2,7 @@ package functions;
 
 import java.io.Serializable;
 import java.io.Externalizable;
+import java.util.Objects;
 
 
 public interface TabulatedFunction
@@ -82,4 +83,10 @@ public interface TabulatedFunction
      * или точка выходит за границы области определения
      */
     void addPoint(FunctionPoint point) throws InappropriateFunctionPointException;
+
+    /**
+     * Копирует функцию
+     * @return копию табулированной функции
+     */
+    Object clone();
 }
