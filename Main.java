@@ -7,7 +7,6 @@ public class Main {
 
         // Создаем тестовые данные с другими числами
         double[] testValues1 = {2.5, 6.1, 12.8, 20.3, 30.7};
-        double[] testValues2 = {1.2, 3.4, 7.6, 15.9, 25.1};
 
         // Создаем объекты для тестирования
         ArrayTabulatedFunction arrayFunc1 = new ArrayTabulatedFunction(1.0, 5.0, testValues1);
