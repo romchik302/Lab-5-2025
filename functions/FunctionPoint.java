@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class FunctionPoint
 {
+    private static final double EPSILON = 1e-10;
     private double x;
     private double y;
 
@@ -64,8 +65,8 @@ public class FunctionPoint
 
         FunctionPoint that = (FunctionPoint) obj;
 
-        return Double.compare(that.x, x) == 0 &&
-                Double.compare(that.y, y) == 0;
+        return Math.abs(that.x - x) < EPSILON &&
+                Math.abs(that.y - y) < EPSILON;
     }
 
     @Override
